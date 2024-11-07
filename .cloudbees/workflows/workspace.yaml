@@ -7,22 +7,13 @@ on:
       - "**"
   workflow_dispatch:
 jobs:
-  build:
-    steps:
-      - name: Say hello
-        uses: docker://golang:1.20.3-alpine3.17
-        shell: sh
-        run: |
-          echo "hello world"
-    needs:
-      - test
   test:
     steps:
-      - name: Run GHA
-        uses: cloudbees-io/ghactions-run-workflow@v2
-        run: ""
+      - uses: cloudbees-io/ghactions-run-workflow@v2
+        name: Run GHA Workflow
+        kind: test
+        continue-on-error: true
         with:
-          "0": ""
           token: ${{ secrets.GH_TOKEN }}
           org-name: cloudbees-days
           repo-name: hackers-organized-2
@@ -30,8 +21,6 @@ jobs:
           workflow-name: test-and-build-image
           test-type: JUnit
           test-result-location: junit.xml
-        shell: ""
-        kind: test
       - uses: cloudbees-io/checkout@v1
         name: Get source code
         continue-on-error: true
