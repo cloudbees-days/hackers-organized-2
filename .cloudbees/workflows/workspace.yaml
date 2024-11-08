@@ -131,7 +131,7 @@ jobs:
       - name: Publish evidence
         uses: cloudbees-io/publish-evidence-item@v1
         with:
-          content: |
+          content: |-
             ## SonarQube Analysis Results
             
             | Severity And Issue Count |
